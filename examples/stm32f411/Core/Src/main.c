@@ -110,7 +110,22 @@ int main(void)
 
   DBG("\n\n\n-------------------------\nMCU and Peripherals has been initialized!");
 
-  if (i2clcd_init(&i2clcd, &hi2c1) != I2CLcd_OK) {
+	for (uint8_t i = 0; i < 128; i++) {
+
+	  if (HAL_I2C_IsDeviceReady(&hi2c1, (uint16_t)(i<<1), 3, 5) == HAL_OK) {
+		  // We got an ack
+		  printf("%2x ", i);
+	  } else {
+		  printf("-- ");
+	  }
+
+	  if (i > 0 && (i + 1) % 16 == 0) printf("\n");
+
+	}
+
+	printf("\n");
+
+  if (i2clcd_init(&i2clcd, &hi2c1, 0x28) != I2CLcd_OK) {
 	  Error_Handler();
   }
 
