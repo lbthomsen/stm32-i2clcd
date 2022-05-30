@@ -8,6 +8,8 @@
 #ifndef I2CLCD_H_
 #define I2CLCD_H_
 
+#define LCD_DEFAULT_ADDRESS 0x27
+
 // commands
 #define LCD_CLEARDISPLAY 0x01
 #define LCD_RETURNHOME 0x02
@@ -50,18 +52,26 @@
 #define LCD_BACKLIGHT 0x08
 #define LCD_NOBACKLIGHT 0x00
 
-#define En B00000100  // Enable bit
-#define Rw B00000010  // Read/Write bit
-#define Rs B00000001  // Register select bit
+#define LCD_EN 0b00000100  // Enable bit
+#define LCD_RW 0b00000010  // Read/Write bit
+#define LCD_RS 0b00000001  // Register select bit
 
 typedef struct {
 	I2C_HandleTypeDef *i2c;
 	uint8_t address;
+	uint8_t displayfunction;
+	uint8_t displaycontrol;
+	uint8_t displaymode;
+	uint8_t cols;
+	uint8_t rows;
+	uint8_t charsize;
+	uint8_t backlight;
 } I2CLcd_HandleTypeDef;
 
 typedef enum {
 	I2CLcd_OK,
-	I2CLcd_Err
+	I2CLcd_Err,
+	I2CLcd_Timeout
 } I2CLcd_result_t;
 
 I2CLcd_result_t i2clcd_init(I2CLcd_HandleTypeDef *i2clcd, I2C_HandleTypeDef *i2c, uint8_t address);

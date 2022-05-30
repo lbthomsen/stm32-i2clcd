@@ -125,7 +125,7 @@ int main(void)
 
 	printf("\n");
 
-  if (i2clcd_init(&i2clcd, &hi2c1, 0x28) != I2CLcd_OK) {
+  if (i2clcd_init(&i2clcd, &hi2c1, LCD_DEFAULT_ADDRESS) != I2CLcd_OK) {
 	  Error_Handler();
   }
 
