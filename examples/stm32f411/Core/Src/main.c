@@ -110,24 +110,34 @@ int main(void)
 
   DBG("\n\n\n-------------------------\nMCU and Peripherals has been initialized!");
 
-	for (uint8_t i = 0; i < 128; i++) {
-
-	  if (HAL_I2C_IsDeviceReady(&hi2c1, (uint16_t)(i<<1), 3, 5) == HAL_OK) {
-		  // We got an ack
-		  printf("%2x ", i);
-	  } else {
-		  printf("-- ");
-	  }
-
-	  if (i > 0 && (i + 1) % 16 == 0) printf("\n");
-
-	}
-
-	printf("\n");
+//	for (uint8_t i = 0; i < 128; i++) {
+//
+//	  if (HAL_I2C_IsDeviceReady(&hi2c1, (uint16_t)(i<<1), 3, 5) == HAL_OK) {
+//		  // We got an ack
+//		  printf("%2x ", i);
+//	  } else {
+//		  printf("-- ");
+//	  }
+//
+//	  if (i > 0 && (i + 1) % 16 == 0) printf("\n");
+//
+//	}
+//
+//	printf("\n");
 
   if (i2clcd_init(&i2clcd, &hi2c1, LCD_DEFAULT_ADDRESS) != I2CLcd_OK) {
 	  Error_Handler();
   }
+
+	// Toy around with backlight
+	i2clcd_set_backlight(&i2clcd, LCD_FALSE);
+	HAL_Delay(1000);
+	i2clcd_set_backlight(&i2clcd, LCD_TRUE);
+	HAL_Delay(1000);
+	i2clcd_set_backlight(&i2clcd, LCD_FALSE);
+	HAL_Delay(1000);
+	i2clcd_set_backlight(&i2clcd, LCD_TRUE);
+	HAL_Delay(1000);
 
   /* USER CODE END 2 */
 
