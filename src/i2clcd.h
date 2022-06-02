@@ -56,6 +56,9 @@
 #define LCD_RW 0b00000010  // Read/Write bit
 #define LCD_RS 0b00000001  // Register select bit
 
+#define LCD_FALSE 0x0
+#define LCD_TRUE 0x1
+
 typedef struct {
 	I2C_HandleTypeDef *i2c;
 	uint8_t address;
@@ -75,5 +78,7 @@ typedef enum {
 } I2CLcd_result_t;
 
 I2CLcd_result_t i2clcd_init(I2CLcd_HandleTypeDef *i2clcd, I2C_HandleTypeDef *i2c, uint8_t address);
+
+I2CLcd_result_t i2clcd_set_backlight(I2CLcd_HandleTypeDef *i2clcd, uint8_t backlight);
 
 #endif /* I2CLCD_H_ */
