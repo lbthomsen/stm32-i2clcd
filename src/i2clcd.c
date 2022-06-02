@@ -23,7 +23,7 @@ I2CLcd_result_t i2clcd_init(I2CLcd_HandleTypeDef *i2clcd, I2C_HandleTypeDef *i2c
 	i2clcd->address = address;
 
 	i2clcd->displayfunction = LCD_4BITMODE | LCD_2LINE | LCD_5x8DOTS;
-	i2clcd->backlight = LCD_NOBACKLIGHT;
+	i2clcd->backlight = LCD_BACKLIGHT;
 
 	HAL_Delay(50);
 
